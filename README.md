@@ -1,6 +1,6 @@
-Analysis of Nobel Laureates from 1901-present
+# Analysis of Nobel Laureates from 1901-present
 
-Data obtained from Kaggle
+**Data obtained from Kaggle**
 
 This is a preliminary analysis of the dataset that addresses the following questions:
 
