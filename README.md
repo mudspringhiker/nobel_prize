@@ -26,3 +26,6 @@ The United States also dominated other countries in terms of number of people aw
 Most of the Laureates are aged around 60 years old.
 
 ![](age.png)
+
+Word cloud for motivations for Chemistry Nobel:
+![](chemnobel.png)
