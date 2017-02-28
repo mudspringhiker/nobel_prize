@@ -25,6 +25,13 @@ The United States also dominated other countries in terms of number of people aw
 
 Most of the Laureates are aged around 60 years old.
 
+**In short, you have a shot at a Nobel Prize if you are:
+
+1. a male
+2. in the area of medicine
+3. living in the USA
+4. around 60 years old
+
 ![](age.png)
 
 Word cloud for motivations for Chemistry Nobel:
