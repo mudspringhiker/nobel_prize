@@ -136,7 +136,7 @@
 							.attr("y", 0)
 							.attr("width", w)
 							.attr("height", h)
-							.style("fill", "white"); //Changes the color of the ocean
+							.style("fill", "#9ee0e5"); //Changes the color of the ocean
 
 			//Bind data and create one path per GeoJSON feature
 			countries = countriesGroup.selectAll("path")
@@ -144,7 +144,7 @@
 									.enter()
 									.append("path")
 									.attr("d", path)
-									.style("fill", "#9ee0e5");
+									.style("fill", "white");
 
 
 			//Load in nobels data
