@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Nobel Laureates</title>
+	<script type="text/javascript" src="https://d3js.org/d3.v3.js"></script>
+	<style type="text/css">
+
+
+
+		body {
+			background-color: gray;
+		}
+
+		svg {
+			background-color: white;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+
+		//Globals for use later
+		var countries;
+		var nobels;
+
+		//Width and height
+		var w = 1000;
+		var h = 600;
+
+		//Define map projection
+		var projection = d3.geo.mercator()
+							   .center([ 0, 40 ])
+							   .translate([ w/2, h/2 ])
+							   .scale([ w/7 ]);
+
+		//Define path generator
+		var path = d3.geo.path()
+						 .projection(projection);
+
+		// Zoom behavior
+		var zoom = d3.behavior.zoom()
+			.translate(projection.translate())
+			.scale(projection.scale())
+			.on("zoom", function(d) {
+
+				//Get the translate and scale values from this event
+				var t = d3.event.translate;
+				var s = d3.event.scale;
+
+				//Update the zoom and projection objects with these
+				zoom.translate(t);
+				projection.translate(t).scale(s);
+
+				//Recalculate countries
+				countries.attr("d", path);
+
+				//Recalculate nobels
+				nobels.attr("cx", function(d) {
+								return projection([d.longitude, d.latitude])[0];
+							})
+						.attr("cy", function(d) {
+								return projection([d.longitude, d.latitude])[1];
+						});
+			});
+
+		//Create SVG
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width", w)
+					.attr("height", h);
+
+		//Load in GeoJSON data
+		d3.json("mapshaper_output.json", function(json) {
+
+			//Bind data and create one path per GeoJSON feature
+//			svg.selectAll("path")
+//			   .data(json.features)
+//			   .enter()
+//			   .append("path")
+//			   .attr("d", path)
+//			   .style("fill", "#9ee0e5");
+
+			//Create a group to contain all the paths, to catch
+			//zoom events, even when the mouse is positioned over
+			//the ocean.
+			var countriesGroup = svg.append("g")
+									.attr("id", "countriesGroup")
+									.call(zoom); //Bind zoom listener to the countries group
+
+			//Create a rectangle in the background.
+			//This is purely to ensure this group fills the whole
+			//SVG image, so mousewheel events are caught.
+			countriesGroup.append("rect")
+							.attr("x", 0)
+							.attr("y", 0)
+							.attr("width", w)
+							.attr("height", h)
+							.style("fill", "white"); //Changes the color of the ocean
+
+			//Bind data and create one path per GeoJSON feature
+			countries = countriesGroup.selectAll("path")
+									.data(json.features)
+									.enter()
+									.append("path")
+									.attr("d", path)
+									.style("fill", "#9ee0e5");
+
+
+			//Load in nobels data
+			d3.csv("nobellist.csv", function(data) {
+
+				//Create a circle for each city
+				nobels = svg.selectAll("circle")
+				   .data(data)
+				   .enter()
+				   .append("circle")
+				   .attr("cx", function(d) {
+					   return projection([d.longitude, d.latitude])[0];
+				   })
+				   .attr("cy", function(d) {
+					   return projection([d.longitude, d.latitude])[1];
+				   })
+				   .attr("r", function(d) {
+				   	   //Use Math.sqrt to scale by area (not radius)
+					   return Math.sqrt(+d.Total/(w/1000));
+				   })
+				   .style("fill", "black")
+				   .style("opacity", 1);
+				});
+		});
+
+	</script>
+</body>
+</html>

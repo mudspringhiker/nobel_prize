@@ -1,0 +1,27 @@
+latitude,longitude,name,desc,color,source,precision
+-35.112487,-65.241974,Argentina,AR,,MapQuest Open,country
+-24.776109,134.755,Australia,AU,,MapQuest Open,country
+47.200034,13.199959,Austria,AT,,MapQuest Open,country
+50.640735,4.66696,Belgium,BE,,MapQuest Open,country
+61.066692,-107.991707,Canada,CA,,MapQuest Open,country
+35.000074,104.999927,China,CN,,MapQuest Open,country
+39.78373,-100.445882,Czechoslovakia,US,,MapQuest Open,country
+55.670249,10.333328,Denmark,DK,,MapQuest Open,country
+63.246778,25.920916,Finland,FI,,MapQuest Open,country
+46.603354,1.888334,France,FR,,MapQuest Open,country
+51.08342,10.423447,Germany,DE,,MapQuest Open,country
+47.181759,19.506094,Hungary,HU,,MapQuest Open,country
+22.351115,78.667743,India,IN,,MapQuest Open,country
+52.865196,-7.97946,Ireland,IE,,MapQuest Open,country
+30.876027,35.00152,Israel,IL,,MapQuest Open,country
+42.638426,12.674297,Italy,IT,,MapQuest Open,country
+36.574844,139.239418,Japan,JP,,MapQuest Open,country
+52.237989,5.534607,Netherlands,"Netherlands, NL",,MapQuest Open,country
+60.500021,9.099972,Norway,NO,,MapQuest Open,country
+39.430125,-8.560792,Portugal,PT,,MapQuest Open,country
+64.686314,97.745306,Russia,RU,,MapQuest Open,country
+40.002803,-4.003104,Spain,ES,,MapQuest Open,country
+59.674971,14.520858,Sweden,SE,,MapQuest Open,country
+46.798562,8.231974,Switzerland,CH,,MapQuest Open,country
+54.702355,-3.276575,United Kingdom,GB,,MapQuest Open,country
+39.78373,-100.445882,United States of America,US,,MapQuest Open,country
