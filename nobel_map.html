@@ -10,17 +10,53 @@
 
 		body {
 			background-color: gray;
+			font-family: Helvetica, Arial, sans-serif;
 		}
 
 		svg {
 			background-color: white;
 		}
 
+		#tooltip {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 10;
+			margin: 0;
+			padding: 10px;
+			width: auto;
+			color: white;
+			font-family: sans-serif;
+			font-size: 10px;
+			text-align: left;
+			background-color: rgba(0, 0, 0, 0.75);
+			opacity: 0;
+			pointer-events: none;
+		}
 
+		#tooltip p {
+			margin: 0;
+
+		}
+
+		#tooltip p.value {
+			font-weight: light;
+		}
 
 	</style>
 </head>
 <body>
+
+	<p>Nobel Laureates by Organization Country (source: <a href="http://www.nobelprize.org">NobelPrize.org</a>, 2017)</p>
+
+	<p>Zoom it to focus on countries. Mouse over to see number of Nobel laureates for a country.</p>
+
+	<!-- New HTML div functions as our tooltip -->
+	<div id="tooltip">
+		<p class="name"></p>
+		<p class="value"></p>
+	</div>
+
 	<script type="text/javascript">
 
 		//Globals for use later
@@ -41,10 +77,11 @@
 		var path = d3.geo.path()
 						 .projection(projection);
 
-		// Zoom behavior
+		//Configure zoom behavior
 		var zoom = d3.behavior.zoom()
 			.translate(projection.translate())
 			.scale(projection.scale())
+			//Defines the on("zoom") event (what to do on double-click or mousewheel roll).
 			.on("zoom", function(d) {
 
 				//Get the translate and scale values from this event
@@ -128,8 +165,45 @@
 				   	   //Use Math.sqrt to scale by area (not radius)
 					   return Math.sqrt(+d.Total/(w/1000));
 				   })
-				   .style("fill", "black")
-				   .style("opacity", 1);
+				   .style("fill", "blue")
+				   .style("opacity", 1)
+				   //
+				   //Added tooltip behavior:
+				   //
+				   .on("mouseover", function(d) {
+
+				   		//Fill yellow to highlight
+				   		d3.select(this)
+				   			.style("fill", "red");
+
+				   		//Position the tooltip <div> and set its content
+				   		var x = d3.event.pageX;
+				   		var y = d3.event.pageY - 40;
+
+				   		//Populate name in tooltip
+				   		d3.select("#tooltip .name")
+				   			.text(d.Organization_Country);
+
+				   		//Populate value in tooltip
+				   		d3.select("#tooltip .value")
+				   			.text("Total Nobel Laureates: " + d.Total);
+
+				   		//Position tooltip and make visible
+				   		d3.select("#tooltip")
+				   			.style("left", x + "px")
+				   			.style("top", y + "px")
+				   			.style("opacity", 1)
+				   })
+				   .on("mouseout", function() {
+
+				   		//Restore original fill
+				   		d3.select(this)
+				   			.style("fill", "blue");
+
+				   		//Hide the tooltip
+				   		d3.select("#tooltip")
+				   			.style("opacity", 0);
+				   });
 				});
 		});
 
