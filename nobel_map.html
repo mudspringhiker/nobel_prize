@@ -64,14 +64,14 @@
 		var nobels;
 
 		//Width and height
-		var w = 1000;
-		var h = 600;
+		var w = 800;
+		var h = 400;
 
 		//Define map projection
 		var projection = d3.geo.mercator()
-							   .center([ 0, 40 ])
+							   .center([ 10, 30 ]) //changing the values will change location of the center. First value horizontal, second value vertical (usual cartesian positions).
 							   .translate([ w/2, h/2 ])
-							   .scale([ w/7 ]);
+							   .scale([ w/6 ]);
 
 		//Define path generator
 		var path = d3.geo.path()
@@ -163,7 +163,7 @@
 				   })
 				   .attr("r", function(d) {
 				   	   //Use Math.sqrt to scale by area (not radius)
-					   return Math.sqrt(+d.Total/(w/1000));
+					   return Math.sqrt(+d.Total/(w/500));
 				   })
 				   .style("fill", "blue")
 				   .style("opacity", 1)
