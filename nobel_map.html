@@ -150,6 +150,9 @@
 			//Load in nobels data
 			d3.csv("nobellist.csv", function(data) {
 
+				// scale the radius
+				var r = d3.scale.sqrt().range([3, 15]).domain([1, d3.max(data, function(d) {return d.Total;})]);
+
 				//Create a circle for each city
 				nobels = svg.selectAll("circle")
 				   .data(data)
@@ -162,8 +165,8 @@
 					   return projection([d.longitude, d.latitude])[1];
 				   })
 				   .attr("r", function(d) {
-				   	   //Use Math.sqrt to scale by area (not radius)
-					   return Math.sqrt(+d.Total/(w/500));
+				   	   //Use use the radius scale:
+					   return r(d.Total);
 				   })
 				   .style("fill", "blue")
 				   .style("opacity", 1)
