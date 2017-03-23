@@ -151,7 +151,7 @@
 			d3.csv("nobellist.csv", function(data) {
 
 				// scale the radius
-				var r = d3.scale.sqrt().range([2, 10]).domain([1, d3.max(data, function(d) {return d.Total;})]);
+				var r = d3.scale.sqrt().range([3, 9]).domain([1, d3.max(data, function(d) {return d.Total;})]);
 
 				//Create a circle for each city
 				nobels = svg.selectAll("circle")
